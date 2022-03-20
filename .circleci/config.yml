@@ -54,6 +54,10 @@ jobs:
             - run:
                 name: Get the Python version
                 command: python --version
+            - run:
+                name: Get the AWS version
+                command: aws --version
+
 
 workflows:
     AWSworkflow:
