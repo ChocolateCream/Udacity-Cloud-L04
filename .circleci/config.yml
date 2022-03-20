@@ -56,7 +56,7 @@ jobs:
                 command: python3 --version
             - run:
                 name: Get the AWS version
-                command: aws --version
+                command: python -m pip install -U ansible
 
 
 workflows:
