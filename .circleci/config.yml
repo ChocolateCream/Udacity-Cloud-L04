@@ -22,7 +22,7 @@ jobs:
 
     configure_infrastructure:
         docker:
-            - image: python:3.7-alpine3.11
+            - image: amazon/aws-cli
         steps:
             - checkout
             - add_ssh_keys:
@@ -57,6 +57,7 @@ jobs:
 workflows:
     AWSworkflow:
         jobs:
-            - create_infrastructure
-            - configure_infrastructure:
-                requires: [create_infrastructure]
+            # - create_infrastructure
+            # - configure_infrastructure:
+            #     requires: [create_infrastructure]
+            - configure_infrastructure
