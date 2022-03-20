@@ -72,7 +72,7 @@ jobs:
                 name: getting tar utitlity
                 command: yum install -y tar gzip
             - persist_to_workspace:
-                root: /tmp/workspace
+                root: ./inv_file
                 paths: [inventory]
 
     job2:
@@ -81,7 +81,7 @@ jobs:
         steps:
             - checkout
             - attach_workspace:
-                at: /tmp/workspace
+                at: ./
             - run:
                 name: checking the inventory file
                 command: cat /tmp/workspace/inventroy
