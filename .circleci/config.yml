@@ -30,7 +30,7 @@ jobs:
                 fingerprints: ["f2:7e:87:70:9b:0d:93:25:63:68:b4:52:6f:62:c4:50"]
             - run:
                 name: getting ssh
-                command: yum –y install openssh-server openssh-clients
+                command: yum install -y openssh-server openssh-clients
             - run:
                 name: Getting pip3
                 command: yum install -y python3-pip
