@@ -48,12 +48,12 @@ jobs:
 
     test_job:
         docker:
-            - image: amazon/aws-cli
+            - image: python:3.7-alpine3.11
         steps:
             - checkout
-            - run:
-                name: Checking the aws cli
-                command: aws iam list-users
+            # - run:
+            #     name: Checking the aws cli
+            #     command: aws iam list-users
             - run:
                 name: Getting Ansible
                 command: python3 -m pip install --user ansible
