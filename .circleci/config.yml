@@ -48,12 +48,12 @@ jobs:
 
     test_job:
         docker:
-            - image: python:3.7-alpine3.11
+            - image: amazon/aws-cli
         steps:
             - checkout
             - run:
-                name: Listing the files
-                command: ls
+                name: Get the Python version
+                command: python --version
 
 workflows:
     AWSworkflow:
@@ -61,4 +61,4 @@ workflows:
             # - create_infrastructure
             # - configure_infrastructure:
             #     requires: [create_infrastructure]
-            - configure_infrastructure
+            - test_job
