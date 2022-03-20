@@ -1,0 +1,62 @@
+---
+## update apt packages
+## sudo apt-get update
+- name: Updating apt Packages
+  become: true
+  apt:
+    update_cache: true
+
+## upgrade packages
+## sudo apt-get upgrade
+- name: Upgrading Packages
+  become: true
+  apt:
+    upgrade: true
+
+## removing the unrequired dependencies
+- name: Removing The No Longer Required Dependencies
+  become: true
+  apt:
+    autoremove: true
+
+## install dependencies, such as NodeJS and NPM
+## sudo apt install nodejs
+## sudo apt install npm
+- name: Installing Dependencies
+  become: true
+  apt:
+    name: [nodejs, npm]
+    state: latest
+    update_cache: true
+
+
+## install pm2
+- name: Installing pm2
+  become: true
+  npm:
+    name: pm2
+    global: true
+    production: true
+    state: present
+
+# ## install pm2
+# - name: Installing pm2
+#   become: true
+#   shell: npm install pm2 -g && pm2 update
+
+## create a ~/web directory
+- name: Creating Web Directory
+  file:
+    path: ~/web
+    state: directory
+
+## copy index test page from files/index.js to ~/web/index.js
+- name: Copying index test page
+  template:
+    src: "files/index.js"
+    dest: "~/web/index.js"
+
+## Start the web server
+- name: Executing node
+  shell: |
+    pm2 start ~/web/index.js -f
