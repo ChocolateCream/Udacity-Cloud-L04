@@ -53,7 +53,7 @@ jobs:
             - checkout
             - run:
                 name: Get the Python version
-                command: python --version
+                command: python3 --version
             - run:
                 name: Get the AWS version
                 command: aws --version
