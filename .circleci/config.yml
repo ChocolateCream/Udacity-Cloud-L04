@@ -84,7 +84,7 @@ jobs:
                 at: ./xyz
             - run:
                 name: checking the inventory file
-                command: ls -la
+                command: ls ./xyz
             
 
 
