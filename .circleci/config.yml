@@ -52,12 +52,11 @@ jobs:
         steps:
             - checkout
             - run:
-                name: Get the AWS version
-                command: python -m pip install -U ansible
+                name: Getting pip
+                command: sudo apt-get install python-pip
             - run:
-                name: Get the Python version
-                command: python3 --version
-
+                name: Getting Ansible
+                command: pip install -U ansible
 
 workflows:
     AWSworkflow:
