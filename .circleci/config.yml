@@ -81,10 +81,10 @@ jobs:
         steps:
             - checkout
             - attach_workspace:
-                at: .
+                at: ./xyz
             - run:
                 name: checking the inventory file
-                command: cat ./inventroy
+                command: ls -la
             
 
 
