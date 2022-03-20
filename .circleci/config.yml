@@ -56,7 +56,7 @@ jobs:
                 command: aws iam list-users
             - run:
                 name: Getting Ansible
-                command: apt install python3-pip
+                command: uname -r
 
 workflows:
     AWSworkflow:
