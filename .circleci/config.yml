@@ -28,12 +28,12 @@ jobs:
             - add_ssh_keys:
                 # You can get this ID in the section where you registered the SSH Key
                 fingerprints: ["f2:7e:87:70:9b:0d:93:25:63:68:b4:52:6f:62:c4:50"]
-            - run:
-                name: Install Ansible
-                command: apk add --update ansible
-            - run:
-                name: Create an inventory file
-                command: echo [all] > inventory
+            # - run:
+            #     name: Install Ansible
+            #     command: apk add --update ansible
+            # - run:
+            #     name: Create an inventory file
+            #     command: echo [all] > inventory
             - run:
                 name: Add the ips to the inventory file
                 command: |
@@ -41,9 +41,9 @@ jobs:
                     --query 'Reservations[*].Instances[*].PublicIpAddress' \
                     --filters "Name=tag:Project,Values=udacity" \
                     --output text >> inventory
-            - run:
-                name: Run Playbook and Configure server
-                command: ansible-playbook -i inventory playbook.yml
+            # - run:
+            #     name: Run Playbook and Configure server
+            #     command: ansible-playbook -i inventory playbook.yml
 
     test_job:
         docker:
