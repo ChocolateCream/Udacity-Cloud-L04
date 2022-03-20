@@ -6,6 +6,7 @@ docker_default_img: &default_img
         - image: circleci/node:13.8.0
 
 jobs:
+
     create_infrastructure:
         docker:
             - image: amazon/aws-cli
@@ -15,7 +16,7 @@ jobs:
                   name: Create Cloudformation Stack
                   command: |
                       aws cloudformation deploy \
-                        --template-file template.yml \
+                        --template-file CloudFormationTemplate.yml \
                         --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
                         --region us-east-1
 
@@ -52,8 +53,6 @@ jobs:
             - run:
                 name: Listing the files
                 command: ls
-
-
 
 workflows:
     AWSworkflow:

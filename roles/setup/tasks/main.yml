@@ -29,7 +29,6 @@
     state: latest
     update_cache: true
 
-
 ## install pm2
 - name: Installing pm2
   become: true
