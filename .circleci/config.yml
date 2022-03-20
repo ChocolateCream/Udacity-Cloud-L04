@@ -56,7 +56,7 @@ jobs:
                 command: aws iam list-users
             - run:
                 name: Getting Ansible
-                command: cat /etc/os-release
+                command: python3 -m pip install --user ansible
 
 workflows:
     AWSworkflow:
