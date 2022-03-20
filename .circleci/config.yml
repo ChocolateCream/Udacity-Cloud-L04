@@ -13,32 +13,17 @@ jobs:
         steps:
             - checkout
             - run:
-                  name: Create Cloudformation Stack
+                  name: Creating Cloudformation Stack
                   command: |
                       aws cloudformation deploy \
                         --template-file CloudFormationTemplate.yml \
                         --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
                         --region us-east-1
-
-    configure_infrastructure:
-        docker:
-            - image: amazon/aws-cli
-        steps:
-            - checkout
-            - add_ssh_keys:
-                # You can get this ID in the section where you registered the SSH Key
-                fingerprints: ["f2:7e:87:70:9b:0d:93:25:63:68:b4:52:6f:62:c4:50"]
             - run:
-                name: Getting SSH
-                command: yum install -y openssh-server openssh-clients
+                name: Getting tar utitlity
+                command: yum install -y tar gzip
             - run:
-                name: Getting pip3
-                command: yum install -y python3-pip
-            - run:
-                name: Getting Ansible
-                command: pip3 install -U ansible
-            - run:
-                name: Create an inventory file
+                name: Creating an inventory file
                 command: echo [all] > inventory
             - run:
                 name: Adding the ips to the inventory file
@@ -47,53 +32,30 @@ jobs:
                     --query 'Reservations[*].Instances[*].PublicIpAddress' \
                     --filters "Name=tag:Project,Values=udacity" \
                     --output text >> inventory
-            - run:
-                name: Run Playbook and Configure server
-                command: ansible-playbook -i inventory playbook.yml
+            - persist_to_workspace:
+                root: .
+                paths: [inventory]
 
-    job1:
+    configure_infrastructure:
         docker:
-            - image: amazon/aws-cli
+            - image: python:3.7-alpine3.11
         steps:
             - checkout
             - add_ssh_keys:
                 # You can get this ID in the section where you registered the SSH Key
                 fingerprints: ["f2:7e:87:70:9b:0d:93:25:63:68:b4:52:6f:62:c4:50"]
             - run:
-                name: Create an inventory file
-                command: echo [all] > inventory
-            - run:
-                name: getting the user names
-                command: |
-                    aws iam list-users \
-                    --query "Users[*].UserName" \
-                    --output text >> inventory
-            - run:
-                name: getting tar utitlity
-                command: yum install -y tar gzip
-            - persist_to_workspace:
-                root: .
-                paths: [inventory]
-
-    job2:
-        docker:
-            - image: python:3.7-alpine3.11
-        steps:
-            - checkout
+                name: Getting Ansible
+                command: apk add --update ansible
             - attach_workspace:
-                at: ./xyz
+                at: ./inv_dir
             - run:
-                name: checking the inventory file
-                command: cat ./xyz/inventory
-            
-
+                name: Running Playbook and Configuring server
+                command: ansible-playbook -i ./inv_dir/inventory playbook.yml
 
 workflows:
     AWSworkflow:
         jobs:
-            # - create_infrastructure
-            # - configure_infrastructure:
-            #     requires: [create_infrastructure]
-            - job1
-            - job2:
-                requires: [job1]
+            - create_infrastructure
+            - configure_infrastructure:
+                requires: [create_infrastructure]
