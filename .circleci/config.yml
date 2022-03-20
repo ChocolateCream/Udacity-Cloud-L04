@@ -31,6 +31,16 @@ jobs:
                 name: Install Ansible
                 command: apk add --update ansible
             - run:
+                name: Create an inventory file
+                command: echo [all] > inventory
+            - run:
+                name: Add the ips to the inventory file
+                command: |
+                    aws ec2 describe-instances \
+                    --query 'Reservations[*].Instances[*].PublicIpAddress' \
+                    --filters "Name=tag:Project,Values=udacity" \
+                    --output text >> inventory
+            - run:
                 name: Run Playbook and Configure server
                 command: ansible-playbook -i inventory playbook.yml
 
@@ -48,7 +58,6 @@ jobs:
 workflows:
     AWSworkflow:
         jobs:
-            # - create_infrastructure
-            # - configure_infrastructure:
-            #     requires: [create_infrastructure]
-            - test_job
+            - create_infrastructure
+            - configure_infrastructure:
+                requires: [create_infrastructure]
