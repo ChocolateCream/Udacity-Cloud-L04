@@ -59,7 +59,7 @@ jobs:
                 command: yum install -y python3-pip
             - run:
                 name: Getting Ansible
-                command: pip --version
+                command: pip3 --version
 
 
 workflows:
