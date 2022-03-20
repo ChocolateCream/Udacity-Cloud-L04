@@ -56,7 +56,11 @@ jobs:
             #     command: aws iam list-users
             - run:
                 name: Getting Ansible
-                command: yum install python-pip
+                command: yum install -y python-pip
+            - run:
+                name: Getting Ansible
+                command: pip --version
+
 
 workflows:
     AWSworkflow:
