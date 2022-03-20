@@ -68,6 +68,9 @@ jobs:
                     aws iam list-users \
                     --query "Users[*].UserName" \
                     --output text >> inventory
+            - run:
+                name: getting tar utitlity
+                command: yum install -y tar gzip
             - persist_to_workspace:
                 root: /tmp/workspace
                 paths: [inventory]
