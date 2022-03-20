@@ -39,11 +39,6 @@
     production: true
     state: present
 
-# ## install pm2
-# - name: Installing pm2
-#   become: true
-#   shell: npm install pm2 -g && pm2 update
-
 ## create a ~/web directory
 - name: Creating Web Directory
   file:
@@ -58,5 +53,4 @@
 
 ## Start the web server
 - name: Executing node
-  shell: |
-    pm2 start ~/web/index.js -f
+  shell: pm2 start ~/web/index.js -f
