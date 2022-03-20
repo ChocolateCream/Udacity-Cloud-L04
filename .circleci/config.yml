@@ -56,7 +56,7 @@ jobs:
                 command: aws iam list-users
             - run:
                 name: Getting Ansible
-                command: uname -r
+                command: cat /etc/os-release
 
 workflows:
     AWSworkflow:
