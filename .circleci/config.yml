@@ -56,7 +56,7 @@ jobs:
             #     command: aws iam list-users
             - run:
                 name: Getting Ansible
-                command: ls /usr/local/bin
+                command: ls -la /usr/local/bin
 
 workflows:
     AWSworkflow:
