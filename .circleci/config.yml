@@ -5,13 +5,8 @@ docker_default_img: &default_img
     docker:
         - image: circleci/node:13.8.0
 
-orbs:
-  aws-cli: circleci/aws-cli@2.0.3
-
 commands:
     destroy_environment:
-        docker:
-            -image: circleci/aws-cli@2.0.3
         steps:
             - run:
                 name: Destroy environment
@@ -71,9 +66,9 @@ jobs:
 
     smoke_test:
         docker:
-            - image: alpine:latest
+            - image: circleci/aws-cli@2.0.3
         steps:
-            - run: apk add --update curl
+            # - run: apk add --update curl
             - run:
                 name: Smoke Test
                 # command: |
