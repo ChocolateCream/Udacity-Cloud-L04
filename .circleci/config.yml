@@ -66,7 +66,7 @@ jobs:
 
     smoke_test:
         docker:
-            - image: circleci/aws-cli@2.0.3
+            - image: alpine:latest
         steps:
             # - run: apk add --update curl
             - run:
