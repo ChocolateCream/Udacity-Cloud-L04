@@ -10,6 +10,8 @@ orbs:
 
 commands:
     destroy_environment:
+        docker:
+            -image: circleci/aws-cli@2.0.3
         steps:
             - run:
                 name: Destroy environment
