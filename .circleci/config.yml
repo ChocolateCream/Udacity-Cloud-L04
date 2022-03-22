@@ -85,7 +85,8 @@ jobs:
 workflows:
     AWSworkflow:
         jobs:
-            # - create_infrastructure
+            - create_infrastructure
             # - configure_infrastructure:
             #     requires: [create_infrastructure]
-            - smoke_test
+            - smoke_test:
+                requires: [create_infrastructure]
