@@ -71,16 +71,17 @@ jobs:
             - run: apk add --update curl
             - run:
                 name: Smoke Test
-                command: |
-                    URL="https://blog.udacity.com/"
-                    # Test if website exists
-                    if curl -s --head ${URL} 
-                    then
-                        return 0
-                    else
-                        return 1
-                    fi
-
+                # command: |
+                #     URL="https://blog.udacity.com/"
+                #     # Test if website exists
+                #     if curl -s --head ${URL} 
+                #     then
+                #         return 0
+                #     else
+                #         return 1
+                #     fi
+                command: return 1
+            - destroy_environment
 
 workflows:
     AWSworkflow:
