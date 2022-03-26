@@ -51,7 +51,7 @@ jobs:
                 name: print the contents of the file
                 command: |
                     pwd
-                    ls
+                    ls ./searchmebecauseiamhere
 
     smoke_test:
         docker:
