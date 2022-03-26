@@ -49,7 +49,12 @@ jobs:
             #     command: ansible-playbook -i ./inv_dir/inventory playbook.yml
             - run:
                 name: print the contents of the file
-                command: cat ./.circleci/newfolder/invfile.txt
+                command: |
+                    cat ./.circleci/newfolder/invfile.txt
+                    pwd
+                    ls
+                    ls ./.corcleci
+                    ls ./.circleci/newfolder
 
 
     smoke_test:
@@ -95,9 +100,10 @@ jobs:
 workflows:
     AWSworkflow:
         jobs:
-            - create_infrastructure
-            - configure_infrastructure:
-                requires: [create_infrastructure]
+            # - create_infrastructure
+            # - configure_infrastructure:
+            #     requires: [create_infrastructure]
             # - smoke_test:
             #     requires: [create_infrastructure]
             # - create_infrastructure
+            - configure_infrastructure
