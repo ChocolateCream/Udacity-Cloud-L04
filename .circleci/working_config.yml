@@ -1,0 +1,115 @@
+version: 2.1
+
+## adding an anchor for the docker image
+docker_default_img: &default_img
+    docker:
+        - image: circleci/node:13.8.0
+
+commands:
+    destroy_environment:
+        steps:
+            - run:
+                name: Destroy environment
+                # ${CIRCLE_WORKFLOW_ID} is a Built-in environment variable 
+                # ${CIRCLE_WORKFLOW_ID:0:5} takes the first 5 chars of the variable CIRCLE_CI_WORKFLOW_ID 
+                when: on_fail
+                command: |
+                    aws cloudformation delete-stack --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5}
+
+jobs:
+
+    create_infrastructure:
+        docker:
+            - image: amazon/aws-cli
+        steps:
+            - checkout
+            - run:
+                  name: Creating Cloudformation Stack
+                  command: |
+                      aws cloudformation deploy \
+                        --template-file CloudFormationTemplate.yml \
+                        --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
+                        --region us-east-1
+            - run:
+                name: Getting tar utitlity
+                command: yum install -y tar gzip
+            - run:
+                name: Creating an inventory file
+                command: echo [all] > inventory
+            - run:
+                name: Adding the ips to the inventory file
+                command: |
+                    aws ec2 describe-instances \
+                    --query 'Reservations[*].Instances[*].PublicIpAddress' \
+                    --filters "Name=tag:Project,Values=udacity" \
+                    --output text >> inventory
+            - persist_to_workspace:
+                root: .
+                paths: [inventory]
+
+    configure_infrastructure:
+        docker:
+            - image: python:3.7-alpine3.11
+        steps:
+            - checkout
+            - add_ssh_keys:
+                # You can get this ID in the section where you registered the SSH Key
+                fingerprints: ["f2:7e:87:70:9b:0d:93:25:63:68:b4:52:6f:62:c4:50"]
+            - run:
+                name: Getting Ansible
+                command: apk add --update ansible
+            - attach_workspace:
+                at: ./inv_dir
+            - run:
+                name: Running Playbook and Configuring server
+                command: ansible-playbook -i ./inv_dir/inventory playbook.yml
+
+    smoke_test:
+        docker:
+            - image: amazon/aws-cli
+        steps:
+            # - run: apk add --update curl
+            - run:
+                name: Smoke Test
+                # command: |
+                #     URL="https://blog.udacity.com/"
+                #     # Test if website exists
+                #     if curl -s --head ${URL} 
+                #     then
+                #         return 0
+                #     else
+                #         return 1
+                #     fi
+                command: return 1
+            - destroy_environment
+
+    # Executes the bucket.yml - Deploy an S3 bucket, and interface with that bucket
+    # to synchronize the files between local and the bucket.
+    # Note that the `--parameter-overrides` let you specify a value that
+    # override parameter value in the bucket.yml template file.
+    create_and_deploy_front_end:
+        docker:
+            - image: amazon/aws-cli
+        steps:
+            - checkout
+            - run:
+                name: Execute bucket.yml - Create Cloudformation Stack
+                command: |
+                    aws cloudformation deploy \
+                    --template-file bucket.yml \
+                    --stack-name stack-create-bucket-${CIRCLE_WORKFLOW_ID:0:7} \
+                    --parameter-overrides MyBucketName="mybucket-${CIRCLE_WORKFLOW_ID:0:7}"
+            # Uncomment the step below if you wish to upload all
+            # contents of the current directory to the S3 bucket
+            # - run: aws s3 sync . s3://mybucket-${CIRCLE_WORKFLOW_ID:0:7} --delete
+
+
+workflows:
+    AWSworkflow:
+        jobs:
+            # - create_infrastructure
+            # - configure_infrastructure:
+            #     requires: [create_infrastructure]
+            # - smoke_test:
+            #     requires: [create_infrastructure]
+            - create_and_deploy_front_end
