@@ -64,16 +64,19 @@ jobs:
             - checkout
             - run:
                 name: Getting dependencies
-                command: |
-                    yum update -y
-                    yum install -y tar gzip
-                    yum install -y openssh-server openssh-clients
-                    yum install -y python3
-                    yum install -y python3-pip
-                    # pip3 install -U ansible
-            - run:
-                name: checking the python version
-                command: python3 --version
+                command: echo "hello there"
+            # - run:
+            #     name: Getting dependencies
+            #     command: |
+            #         yum update -y
+            #         yum install -y tar gzip
+            #         yum install -y openssh-server openssh-clients
+            #         yum install -y python3
+            #         yum install -y python3-pip
+            #         # pip3 install -U ansible
+            # - run:
+            #     name: checking the python version
+            #     command: python3 --version
 
 
 
