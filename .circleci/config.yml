@@ -69,7 +69,7 @@ jobs:
                 name: Getting Ansible
                 command: apk add --update ansible
             - attach_workspace:
-                at: ./searchmebecauseiamhere
+                at: ~/
             # - run:
             #     name: Running Playbook and Configuring server
             #     command: ansible-playbook -i ./inv_dir/inventory playbook.yml
