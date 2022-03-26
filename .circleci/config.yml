@@ -43,7 +43,7 @@ jobs:
                 name: Getting Ansible
                 command: apk add --update ansible
             - attach_workspace:
-                at: ~/project/.circleci/newfolder/
+                at: ~/project/.circleci
             # - run:
             #     name: Running Playbook and Configuring server
             #     command: ansible-playbook -i ./inv_dir/inventory playbook.yml
@@ -51,9 +51,7 @@ jobs:
                 name: print the contents of the file
                 command: |
                     cat ~/project/.circleci/newfolder/invfile.txt
-                    pwd
-                    cd ~
-                    pwd
+                    ls ~/project/.circleci
 
     smoke_test:
         docker:
