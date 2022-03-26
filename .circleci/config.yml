@@ -53,7 +53,7 @@ jobs:
                     cat ./.circleci/newfolder/invfile.txt
                     pwd
                     ls
-                    ls ./.corcleci
+                    ls ./.circleci
                     ls ./.circleci/newfolder
 
 
