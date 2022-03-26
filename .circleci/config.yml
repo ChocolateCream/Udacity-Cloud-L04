@@ -1,21 +1,5 @@
 version: 2.1
 
-## adding an anchor for the docker image
-docker_default_img: &default_img
-    docker:
-        - image: circleci/node:13.8.0
-
-commands:
-    destroy_environment:
-        steps:
-            - run:
-                name: Destroy environment
-                # ${CIRCLE_WORKFLOW_ID} is a Built-in environment variable 
-                # ${CIRCLE_WORKFLOW_ID:0:5} takes the first 5 chars of the variable CIRCLE_CI_WORKFLOW_ID 
-                when: on_fail
-                command: |
-                    aws cloudformation delete-stack --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5}
-
 jobs:
 
     create_infrastructure:
@@ -26,26 +10,26 @@ jobs:
             - run:
                   name: Creating Cloudformation Stack
                   command: |
-                      aws cloudformation deploy \
-                        --template-file CloudFormationTemplate.yml \
-                        --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
-                        --region us-east-1
+                    aws cloudformation deploy \
+                    --template-file CloudFormationTemplate.yml \
+                    --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
+                    --tags randy=cola
             - run:
                 name: Getting tar utitlity
                 command: yum install -y tar gzip
-            - run:
-                name: Creating an inventory file
-                command: echo [all] > inventory
             - run:
                 name: Adding the ips to the inventory file
                 command: |
                     aws ec2 describe-instances \
                     --query 'Reservations[*].Instances[*].PublicIpAddress' \
-                    --filters "Name=tag:Project,Values=udacity" \
-                    --output text >> inventory
-            - persist_to_workspace:
-                root: .
-                paths: [inventory]
+                    --filters "Name=tag:randy,Values=cola" \
+                    --output text >> ./.circleci/newfolder/invfile.txt
+            - run:
+                name: print the invfile.txt
+                command: cat ./.circleci/newfolder/invfile.txt
+            # - persist_to_workspace:
+            #     root: .
+            #     paths: [inventory]
 
     configure_infrastructure:
         docker:
@@ -112,4 +96,4 @@ workflows:
             #     requires: [create_infrastructure]
             # - smoke_test:
             #     requires: [create_infrastructure]
-            - create_and_deploy_front_end
+            - create_infrastructure
