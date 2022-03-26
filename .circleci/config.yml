@@ -76,6 +76,7 @@ jobs:
             - run:
                 name: print the contents of the file
                 command: |
+                    cat ./.circleci/newfolder/invfile.txt
                     pwd
                     ls ./searchmebecauseiamhere
 
