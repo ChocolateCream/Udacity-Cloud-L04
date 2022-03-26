@@ -62,8 +62,12 @@ jobs:
         steps:
             - checkout
             - run:
-                name: Trying Curl Command
-                command: curl --insecure https://kvdb.io/QEDo7oLTrxUqkKZap2LHTA/alittletest  -d '515'
+                name: getting aws-cli
+                command: |
+                    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+                    unzip awscliv2.zip
+                    sudo ./aws/install
+                    aws --version
             # - run:
             #     name: Getting dependencies
             #     command: |
