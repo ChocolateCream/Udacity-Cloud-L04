@@ -56,6 +56,23 @@ jobs:
                 root: ~/
                 paths: [project/.circleci/newfolder/invfile.txt]
 
+    check-img:
+        docker:
+            - image: amazon/aws-cli
+        steps:
+            - checkout
+            - run:
+                name: Getting dependencies
+                command: |
+                    yum install -y tar gzip
+                    yum install -y openssh-server openssh-clients
+                    yum install -y python3-pip
+                    pip3 install -U ansible
+            - run:
+                name: checking the python version
+                command: python3 --version
+
+
 
     configure_infrastructure:
         docker:
@@ -129,6 +146,8 @@ workflows:
             # - smoke_test:
             #     requires: [create_infrastructure]
             # - create_infrastructure
-            - get_ips
-            - configure_infrastructure:
-                requires: [get_ips]
+            
+            # - get_ips
+            # - configure_infrastructure:
+            #     requires: [get_ips]
+            - check-img
