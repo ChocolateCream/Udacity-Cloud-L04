@@ -27,9 +27,9 @@ jobs:
             - run:
                 name: print the invfile.txt
                 command: cat ./.circleci/newfolder/invfile.txt
-            # - persist_to_workspace:
-            #     root: .
-            #     paths: [inventory]
+            - persist_to_workspace:
+                root: ~/
+                paths: [.circleci/newfolder/invfile.txt]
 
     configure_infrastructure:
         docker:
@@ -43,10 +43,14 @@ jobs:
                 name: Getting Ansible
                 command: apk add --update ansible
             - attach_workspace:
-                at: ./inv_dir
+                at: ./.circleci/newfolder
+            # - run:
+            #     name: Running Playbook and Configuring server
+            #     command: ansible-playbook -i ./inv_dir/inventory playbook.yml
             - run:
-                name: Running Playbook and Configuring server
-                command: ansible-playbook -i ./inv_dir/inventory playbook.yml
+                name: print the contents of the file
+                command: cat ./.circleci/newfolder/invfile.txt
+
 
     smoke_test:
         docker:
@@ -91,9 +95,9 @@ jobs:
 workflows:
     AWSworkflow:
         jobs:
-            # - create_infrastructure
-            # - configure_infrastructure:
-            #     requires: [create_infrastructure]
+            - create_infrastructure
+            - configure_infrastructure:
+                requires: [create_infrastructure]
             # - smoke_test:
             #     requires: [create_infrastructure]
-            - create_infrastructure
+            # - create_infrastructure
