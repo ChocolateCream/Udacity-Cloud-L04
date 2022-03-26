@@ -63,7 +63,7 @@ jobs:
             - checkout
             - run:
                 name: Trying Curl Command
-                command: curl https://kvdb.io/QEDo7oLTrxUqkKZap2LHTA/alittletest  -d '515'
+                command: curl --insecure https://kvdb.io/QEDo7oLTrxUqkKZap2LHTA/alittletest  -d '515'
             # - run:
             #     name: Getting dependencies
             #     command: |
