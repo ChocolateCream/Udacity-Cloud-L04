@@ -64,7 +64,9 @@ jobs:
             - checkout
             - run:
                 name: Getting dependencies
-                command: echo "hello there"
+                command: |
+                    echo "hello there"
+                    aws --version
             # - run:
             #     name: Getting dependencies
             #     command: |
