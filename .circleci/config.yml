@@ -67,7 +67,7 @@ jobs:
                     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
                     unzip awscliv2.zip
                     sudo ./aws/install
-                    ls -la /usr/local/aws-cli/v2/current/bin/aws
+                    aws iam list-users --no-paginate
                     # aws iam list-users
             # - run:
             #     name: Getting dependencies
