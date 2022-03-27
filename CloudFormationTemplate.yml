@@ -18,7 +18,7 @@ Resources:
                 - Key: created_by
                   Value: Marina
                 - Key: crated_on
-                  Value: 200322
+                  Value: 270322
 
     InstanceSecurityGroup:
         Type: AWS::EC2::SecurityGroup

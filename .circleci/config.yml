@@ -96,9 +96,47 @@ jobs:
             - image: circleci/node:13.8.0
         steps:
             - checkout
-            - run: tar -C randomfolder -czvf artifact.tar.gz .
-            - run: ls -la
+            - add_ssh_keys:
+                fingerprints: ["f2:7e:87:70:9b:0d:93:25:63:68:b4:52:6f:62:c4:50"]
+            - run:
+                name: Getting Ansible
+                command: |
+                    sudo apt update
+                    sudo apt install ansible
+            - run:
+                name: Getting the AWS CLI
+                command: |
+                    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" \
+                    -o "awscliv2.zip"
+                    unzip awscliv2.zip
+                    sudo ./aws/install
+                    export AWS_PAGER=""
+            - run:
+                name: Getting the DNS name of the server
+                command: |
+                    aws ec2 describe-instances \
+                    --query 'Reservations[*].Instances[*].PublicDnsName' \
+                    --filters "Name=tag:Project,Values=udacity" \
+                    --output text >> ansible_folder/inventory
+            - run:
+                name: Print the DNS names
+                command: cat ansible_folder/inventory
+            - run:
+                name: Use Ansible
+                command: |
+                    tar -C randomfolder -czvf artifact.tar.gz .
+                    cd ansible_folder
+                    echo "Contents  of the inventory file is -------"
+                    cat inventory
+                    ansible-playbook -i inventory playbook.yml
 
+
+    
+    
+    
+    
+    
+    
     jobb:
         docker:
             - image: circleci/node:13.8.0
