@@ -85,8 +85,9 @@ jobs:
                 name: Getting Ansible
                 command: |
                     sudo apt update
-                    sudo apt-get install python3 python3-pip -y
-                    sudo pip3 install ansible
+                    sudo apt install ansible
+                    # sudo pip3 install ansible
+            - run: node --version
 
 
             # - run:
