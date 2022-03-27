@@ -1,16 +1,14 @@
 ---
-# ## copy files to the instance
-# - name: Copying index test page
-#   template:
-#     src: ../artifact.tar.gz
-#     dest: ~/artifact.tar.gz
-
-
 ## update apt packages
 - name: Updating apt Packages
   become: true
   apt:
     update_cache: true
+
+## getting aptitute
+- name: getting aptitude
+  become: true
+  shell: apt-get install aptitude
 
 ## upgrade packages
 - name: Upgrading Packages
