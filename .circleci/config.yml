@@ -119,7 +119,7 @@ jobs:
                     # --filters "Name=tag:Project,Values=udacity" \
                     # --output text >> ansible_folder/inventory
                     aws ec2 describe-instances \
-                    --query 'Reservations[*].Instances[*].PublicIpAddress' \
+                    --query 'Reservations[*].Instances[*].PublicDnsName' \
                     --filters "Name=tag:Project,Values=udacity" \
                     --output text >> ansible_folder/inventory
             - run:
