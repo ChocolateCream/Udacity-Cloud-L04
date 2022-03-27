@@ -96,8 +96,8 @@ jobs:
             - image: circleci/node:13.8.0
         steps:
             - checkout
-            - run: cat "[This is a new file being created]" > newfile.txt
-            - run: cat "[This is a new line added]" >> textfile.txt
+            - run: echo "[This is a new file being created]" > newfile.txt
+            - run: echo "[This is a new line added]" >> textfile.txt
             - persist_to_workspace:
                 root: ~/
                 paths:
