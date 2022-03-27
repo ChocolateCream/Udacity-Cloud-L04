@@ -147,6 +147,9 @@ jobs:
                 name: Getting Ansible
                 command: apk add --update ansible
             - run:
+                name: Getting curl
+                command: apk add --update curl
+            - run:
                 name: Getting the AWS CLI
                 command: |
                     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" \
