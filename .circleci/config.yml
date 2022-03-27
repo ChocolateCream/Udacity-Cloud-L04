@@ -88,14 +88,31 @@ jobs:
                     sudo apt install ansible
                     # sudo pip3 install ansible
             - run: node --version
-    
+
+
+
     joba:
         docker:
             - image: circleci/node:13.8.0
         steps:
             - checkout
-            - run: pwd
-            - run: ls
+            - run: cat "[This is a new file being created]" > newfile.txt
+            - run: cat "[This is a new line added]" >> textfile.txt
+            - persist_to_workspace:
+                root: ~/
+                paths:
+                    - project/newfile.txt
+                    - project/textfile.txt
+
+    jobb:
+        docker:
+            - image: circleci/node:13.8.0
+        steps:
+            - checkout
+            - attach_workspace:
+                at: ~/
+            - run: cat newfile.txt
+            - run: cat textfile.txt
 
 
             # - run:
@@ -191,3 +208,6 @@ workflows:
             #     requires: [get_ips]
             # - check-img
             - joba
+            - jobb:
+                requires:
+                  - joba
