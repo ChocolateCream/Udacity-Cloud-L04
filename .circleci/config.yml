@@ -79,6 +79,9 @@ jobs:
         steps:
             - checkout
             - run:
+                name: getting versions
+                command: cat /etc/os-release
+            - run:
                 name: Getting Ansible
                 command: apk add --update ansible
 
