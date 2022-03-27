@@ -103,6 +103,8 @@ jobs:
                 command: |
                     sudo apt update
                     sudo apt install ansible
+                    sudo apt-get install aptitude
+
             - run:
                 name: Getting the AWS CLI
                 command: |
