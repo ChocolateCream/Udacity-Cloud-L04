@@ -137,17 +137,17 @@ jobs:
             - run:
                 name: Getting Ansible
                 command: |
-                    sudo apt update
-                    sudo apt install software-properties-common
-                    sudo add-apt-repository --yes --update ppa:ansible/ansible
-                    sudo apt install ansible
+                    apt update
+                    apt install software-properties-common
+                    add-apt-repository --yes --update ppa:ansible/ansible
+                    apt install ansible
             - run:
                 name: Getting the AWS CLI
                 command: |
                     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" \
                     -o "awscliv2.zip"
                     unzip awscliv2.zip
-                    sudo ./aws/install
+                    ./aws/install
                     # export AWS_PAGER=""
             - run:
                 name: Getting the DNS name of the server
