@@ -96,13 +96,8 @@ jobs:
             - image: circleci/node:13.8.0
         steps:
             - checkout
-            - run: echo "[This is a new file being created]" > newfile.txt
-            - run: echo "[This is a new line added]" >> textfile.txt
-            - persist_to_workspace:
-                root: ~/
-                paths:
-                    - project/newfile.txt
-                    - project/textfile.txt
+            - run: tar -C randomfolder -czvf artifact.tar.gz .
+            - run: ls -la
 
     jobb:
         docker:
@@ -208,6 +203,6 @@ workflows:
             #     requires: [get_ips]
             # - check-img
             - joba
-            - jobb:
-                requires:
-                  - joba
+            # - jobb:
+            #     requires:
+            #       - joba
