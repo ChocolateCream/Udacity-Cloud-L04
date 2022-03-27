@@ -138,9 +138,12 @@ jobs:
                 name: Getting Ansible
                 command: |
                     apt update -y
-                    # apt install software-properties-common -y
-                    # add-apt-repository --yes --update ppa:ansible/ansible
                     apt install ansible -y
+            - run:
+                name: Getting curl and unzip
+                command: |
+                    apk add curl
+                    apk add unzip
             - run:
                 name: Getting the AWS CLI
                 command: |
