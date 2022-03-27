@@ -147,15 +147,18 @@ jobs:
                 name: Getting Ansible
                 command: apk add --update ansible
             - run:
-                name: Getting curl
-                command: apk add --update curl
+                name: Getting curl and unzip
+                command: |
+                    apk add curl
+                    apk add unzip
             - run:
                 name: Getting the AWS CLI
                 command: |
                     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" \
                     -o "awscliv2.zip"
                     unzip awscliv2.zip
-                    aws/install
+                    ./aws/install
+                    aws --version
                     /usr/local/bin/aws --version
                     # export AWS_PAGER=""
             - run:
