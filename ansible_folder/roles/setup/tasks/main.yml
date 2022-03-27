@@ -11,3 +11,13 @@
   unarchive:
     src: ../artifact.tar.gz
     dest: /home/ubuntu
+
+## various jobs
+- name: test jobs
+  shell: |
+    ls -la
+    pwd
+    cd ..
+    ls -la
+    pwd
+
