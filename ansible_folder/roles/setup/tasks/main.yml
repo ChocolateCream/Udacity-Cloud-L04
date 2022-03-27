@@ -8,4 +8,4 @@
 ## extract the files
 - name: extracting files
   # shell: pm2 start ~/web/index.js -f
-  command: tar xvfz artifact.tar.gz
+  shell: tar xvfz artifact.tar.gz
