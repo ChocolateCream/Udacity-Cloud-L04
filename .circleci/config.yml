@@ -69,7 +69,7 @@ jobs:
                     sudo ./aws/install
                     sudo apt install less
                     # aws iam list-users --no-paginate
-                    # aws iam list-users
+                    aws iam list-users
             # - run:
             #     name: Getting dependencies
             #     command: |
