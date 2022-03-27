@@ -5,12 +5,18 @@
 #     src: ../artifact.tar.gz
 #     dest: ~/artifact.tar.gz
 
+- name: Creates directory
+  file:
+    path: /home/ubuntu/backend
+    state: directory
+
+
 ## extract the files
 - name: extracting files
   # shell: pm2 start ~/web/index.js -f
   unarchive:
     src: ../artifact.tar.gz
-    dest: /home/ubuntu
+    dest: /home/ubuntu/backend
 
 ## various jobs
 - name: test jobs
