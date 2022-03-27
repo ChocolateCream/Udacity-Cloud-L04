@@ -83,7 +83,10 @@ jobs:
                 command: cat /etc/os-release
             - run:
                 name: Getting Ansible
-                command: apk add --update ansible
+                command: |
+                    sudo apt update
+                    sudo apt-get install python3 python3-pip -y
+                    sudo pip3 install ansible
 
 
             # - run:
