@@ -114,8 +114,12 @@ jobs:
             - run:
                 name: Getting the DNS name of the server
                 command: |
+                    # aws ec2 describe-instances \
+                    # --query 'Reservations[*].Instances[*].PublicDnsName' \
+                    # --filters "Name=tag:Project,Values=udacity" \
+                    # --output text >> ansible_folder/inventory
                     aws ec2 describe-instances \
-                    --query 'Reservations[*].Instances[*].PublicDnsName' \
+                    --query 'Reservations[*].Instances[*].PublicIpAddress' \
                     --filters "Name=tag:Project,Values=udacity" \
                     --output text >> ansible_folder/inventory
             - run:
