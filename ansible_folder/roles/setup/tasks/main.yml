@@ -5,10 +5,10 @@
   apt:
     update_cache: true
 
-## getting aptitute
-- name: getting aptitude
-  become: true
-  shell: apt-get install aptitude
+# ## getting aptitute
+# - name: getting aptitude
+#   become: true
+#   shell: apt-get install aptitude
 
 ## upgrade packages
 - name: Upgrading Packages
@@ -46,12 +46,12 @@
     src: ../artifact.tar.gz
     dest: /home/ubuntu/backend
 
-## various jobs
-- name: test jobs
-  shell: |
-    ls -la
-    pwd
-    cd ..
-    ls -la
-    pwd
+# ## various jobs
+# - name: test jobs
+#   shell: |
+#     ls -la
+#     pwd
+#     cd ..
+#     ls -la
+#     pwd
 

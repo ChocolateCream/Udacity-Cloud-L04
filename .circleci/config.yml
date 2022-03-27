@@ -91,20 +91,56 @@ jobs:
 
 
 
+
+    # joba:
+    #     docker:
+    #         - image: circleci/node:13.8.0
+    #     steps:
+    #         - checkout
+    #         - add_ssh_keys:
+    #             fingerprints: ["a6:cc:1b:82:99:06:8d:cf:79:e8:c6:c4:0b:6b:2b:a7"]
+    #         - run:
+    #             name: Getting Ansible
+    #             command: |
+    #                 sudo apt update
+    #                 sudo apt install ansible
+    #                 sudo apt-get install aptitude
+
+    #         - run:
+    #             name: Getting the AWS CLI
+    #             command: |
+    #                 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" \
+    #                 -o "awscliv2.zip"
+    #                 unzip awscliv2.zip
+    #                 sudo ./aws/install
+    #                 export AWS_PAGER=""
+    #         - run:
+    #             name: Getting the DNS name of the server
+    #             command: |
+    #                 # aws ec2 describe-instances \
+    #                 # --query 'Reservations[*].Instances[*].PublicDnsName' \
+    #                 # --filters "Name=tag:Project,Values=udacity" \
+    #                 # --output text >> ansible_folder/inventory
+    #                 aws ec2 describe-instances \
+    #                 --query 'Reservations[*].Instances[*].PublicDnsName' \
+    #                 --filters "Name=tag:Project,Values=udacity" \
+    #                 --output text >> ansible_folder/inventory
+
+
     joba:
         docker:
-            - image: circleci/node:13.8.0
+            - image: ubuntu
         steps:
             - checkout
             - add_ssh_keys:
-                fingerprints: ["f2:7e:87:70:9b:0d:93:25:63:68:b4:52:6f:62:c4:50"]
+                fingerprints: ["a6:cc:1b:82:99:06:8d:cf:79:e8:c6:c4:0b:6b:2b:a7"]
             - run:
                 name: Getting Ansible
                 command: |
                     sudo apt update
+                    sudo apt install software-properties-common
+                    sudo add-apt-repository --yes --update ppa:ansible/ansible
                     sudo apt install ansible
-                    sudo apt-get install aptitude
-
             - run:
                 name: Getting the AWS CLI
                 command: |
@@ -112,7 +148,7 @@ jobs:
                     -o "awscliv2.zip"
                     unzip awscliv2.zip
                     sudo ./aws/install
-                    export AWS_PAGER=""
+                    # export AWS_PAGER=""
             - run:
                 name: Getting the DNS name of the server
                 command: |
@@ -144,7 +180,7 @@ jobs:
             - checkout
             - add_ssh_keys:
                 # You can get this ID in the section where you registered the SSH Key
-                fingerprints: ["f2:7e:87:70:9b:0d:93:25:63:68:b4:52:6f:62:c4:50"]
+                fingerprints: ["a6:cc:1b:82:99:06:8d:cf:79:e8:c6:c4:0b:6b:2b:a7"]
             - run:
                 name: Getting Ansible
                 command: apk add --update ansible
@@ -210,7 +246,7 @@ jobs:
             - checkout
             - add_ssh_keys:
                 # You can get this ID in the section where you registered the SSH Key
-                fingerprints: ["f2:7e:87:70:9b:0d:93:25:63:68:b4:52:6f:62:c4:50"]
+                fingerprints: ["a6:cc:1b:82:99:06:8d:cf:79:e8:c6:c4:0b:6b:2b:a7"]
             - run:
                 name: Getting Ansible
                 command: apk add --update ansible
