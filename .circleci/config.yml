@@ -137,10 +137,10 @@ jobs:
             - run:
                 name: Getting Ansible
                 command: |
-                    apt update
-                    apt install software-properties-common
+                    apt update -y
+                    apt install software-properties-common -y
                     add-apt-repository --yes --update ppa:ansible/ansible
-                    apt install ansible
+                    apt install ansible -y
             - run:
                 name: Getting the AWS CLI
                 command: |
