@@ -10,4 +10,4 @@
   # shell: pm2 start ~/web/index.js -f
   unarchive:
     src: ../artifact.tar.gz
-    dest: /home/ubuntu/backend_files
+    dest: /home/ubuntu
