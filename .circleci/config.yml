@@ -56,21 +56,42 @@ jobs:
                 root: ~/
                 paths: [project/.circleci/newfolder/invfile.txt]
 
+    # check-img:
+    #     docker:
+    #         - image: circleci/node:13.8.0
+    #     steps:
+    #         - checkout
+    #         - run:
+    #             name: getting aws-cli
+    #             command: |
+    #                 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    #                 unzip awscliv2.zip
+    #                 sudo ./aws/install
+    #                 export AWS_PAGER=""
+    #                 # sudo apt install less
+    #                 # aws iam list-users --no-paginate
+    #                 aws iam list-users
+
+
     check-img:
         docker:
-            - image: circleci/node:13.8.0
+            - image: amazon/aws-cli
         steps:
             - checkout
             - run:
-                name: getting aws-cli
+                name: Install dependencies
                 command: |
-                    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-                    unzip awscliv2.zip
-                    sudo ./aws/install
-                    export AWS_PAGER=""
-                    # sudo apt install less
-                    # aws iam list-users --no-paginate
-                    aws iam list-users
+                    yum install -y tar gzip
+                    yum install -y openssh-server openssh-clients
+                    yum install -y python3-pip
+                    pip3 install -U ansible
+            - run:
+                name: Get npm and node
+                command: |
+                    yum install nodejs
+                    node --version
+
+
             # - run:
             #     name: Getting dependencies
             #     command: |
