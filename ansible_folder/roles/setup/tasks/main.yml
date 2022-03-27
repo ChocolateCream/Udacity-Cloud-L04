@@ -2,7 +2,7 @@
 ## copy files to the instance
 - name: Copying index test page
   template:
-    src: "../../artifact.tar.gz"
+    src: "../artifact.tar.gz"
     dest: "~/artifact.tar.gz"
 
 ## extract the files
