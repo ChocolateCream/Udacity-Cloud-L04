@@ -88,6 +88,13 @@ jobs:
                     sudo apt install ansible
                     # sudo pip3 install ansible
             - run: node --version
+    
+    joba:
+        docker:
+            - image: circleci/node:13.8.0
+        steps:
+            - checkout
+            - pwd
 
 
             # - run:
@@ -181,4 +188,5 @@ workflows:
             # - get_ips
             # - configure_infrastructure:
             #     requires: [get_ips]
-            - check-img
+            # - check-img
+            - joba
