@@ -75,20 +75,12 @@ jobs:
 
     check-img:
         docker:
-            - image: amazon/aws-cli
+            - image: circleci/node:13.8.0
         steps:
             - checkout
-            # - run:
-            #     name: Install dependencies
-            #     command: |
-            #         yum install -y tar gzip
-            #         yum install -y openssh-server openssh-clients
-            #         yum install -y python3-pip
-            #         pip3 install -U ansible
             - run:
-                name: Get npm and node
-                command: |
-                    dnf module list nodejs
+                name: Getting Ansible
+                command: apk add --update ansible
 
 
             # - run:
