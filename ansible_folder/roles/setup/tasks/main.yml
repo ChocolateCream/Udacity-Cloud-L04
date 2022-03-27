@@ -8,6 +8,6 @@
 ## extract the files
 - name: extracting files
   # shell: pm2 start ~/web/index.js -f
-  ansible.builtin.unarchive:
+  unarchive:
     src: ~/artifact.tar.gz
     dest: ~/backend_files
