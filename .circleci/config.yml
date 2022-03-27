@@ -278,7 +278,7 @@ workflows:
             # - configure_infrastructure:
             #     requires: [get_ips]
             # - check-img
-            - jobb
+            - joba
             # - jobb:
             #     requires:
             #       - joba
