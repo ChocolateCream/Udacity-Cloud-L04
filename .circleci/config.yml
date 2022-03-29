@@ -234,12 +234,22 @@ jobs:
             - run:
                 name: Get backend url
                 command: |
-                    if curl "http://3.84.249.225:3030/api/status" | grep "ok"
+                    # if curl "http://3.84.249.225:3030/api/status" | grep "ok"
+                    # then
+                    #     echo "success"
+                    # else
+                    #     echo "failure"
+                    # fi
+                    
+                    export API_URL="http://3.84.249.225:3030"
+                    echo "${API_URL}"
+                    if curl "${API_URL}/api/status" | grep "ok"
                     then
-                        echo "success"
+                        exit 0
                     else
-                        echo "failure"
+                        exit 1
                     fi
+
 
     configure_infrastructure:
         docker:
