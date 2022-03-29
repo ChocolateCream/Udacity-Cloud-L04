@@ -234,11 +234,11 @@ jobs:
             - run:
                 name: Get backend url
                 command: |
-                    if curl "google.com" | grep "ok"
+                    if curl "http://3.84.249.225:3030/api/status" | grep "ok"
                     then
-                        exit 1
+                        echo "success"
                     else
-                        exit 0
+                        echo "failure"
                     fi
 
     configure_infrastructure:
