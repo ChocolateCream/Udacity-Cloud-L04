@@ -234,20 +234,7 @@ jobs:
             - run:
                 name: Get backend url
                 command: |
-                    export BACKEND_IP=$(aws ec2 describe-instances \
-                    --query 'Reservations[*].Instances[*].PublicIpAddress' \
-                    --filters "Name=tag:Project,Values=udacity" \
-                    --output text)
-                    echo "The back end ip is:"
-                    echo "line 1"
-                    echo $BACKEND_IP
-                    echo "line 2"
-                    echo ${BACKEND_IP}
-                    echo "line 3"
-                    echo "$BACKEND_IP"
-                    echo "line 4"
-                    echo "${BACKEND_IP}"
-                    echo 'export XYZ=$(aws ec2 describe-instances \
+                    echo 'export BACKEND_IP=$(aws ec2 describe-instances \
                     --query 'Reservations[*].Instances[*].PublicIpAddress' \
                     --filters "Name=tag:Project,Values=udacity" \
                     --output text)' >> $BASH_ENV
@@ -255,8 +242,8 @@ jobs:
             - run:
                 name: Backend smoke test.
                 command: |
-                    echo ${XYZ}
-
+                    export API_URL="http://${BACKEND_IP}:3030"
+                    echo "${API_URL}"
 
     configure_infrastructure:
         docker:
