@@ -247,10 +247,10 @@ jobs:
                     echo "$BACKEND_IP"
                     echo "line 4"
                     echo "${BACKEND_IP}"
-                    echo 'export XYZ=$(aws ec2 describe-instances \
+                    echo 'export XYZ=$"(aws ec2 describe-instances \
                     --query 'Reservations[*].Instances[*].PublicIpAddress' \
                     --filters "Name=tag:Project,Values=udacity" \
-                    --output text)' >> BASH_ENV
+                    --output text)"' >> BASH_ENV
 
             - run:
                 name: Backend smoke test.
