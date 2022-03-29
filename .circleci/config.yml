@@ -235,7 +235,7 @@ jobs:
             - run:
                   name: Get backend url
                   command: |
-                    export BACKEND_IP=$(aws ec2 describe-instances \
+                    BACKEND_IP=$(aws ec2 describe-instances \
                     --query 'Reservations[*].Instances[*].PublicIpAddress' \
                     --filters "Name=tag:Project,Values=udacity" \
                     --output text)
@@ -246,15 +246,6 @@ jobs:
                 name: Backend smoke test.
                 command: |
                     echo $BACKEND_IP
-                    export API_URL="http://${BACKEND_IP}:3030"
-                    echo "${API_URL}"
-                    if curl "${API_URL}/api/status" | grep "ok"
-                    then
-                        return 0
-                    else
-                        return 1
-                    fi
-
 
 
     configure_infrastructure:
