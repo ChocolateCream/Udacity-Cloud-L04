@@ -310,21 +310,29 @@ jobs:
             # - run: aws s3 sync . s3://mybucket-${CIRCLE_WORKFLOW_ID:0:7} --delete
 
 
+
+    job1:
+        docker:
+            - image: ubuntu
+        steps:
+            - checkout
+            - run: echo "This is the first job"
+
+    job2:
+        docker:
+            - image: ubuntu
+        steps:
+            - checkout
+            - run: echo "This is the second job"
+
+
+
+
 workflows:
     AWSworkflow:
         jobs:
             # - create_infrastructure
-            # - configure_infrastructure:
-            #     requires: [create_infrastructure]
-            # - smoke_test:
-            #     requires: [create_infrastructure]
-            # - create_infrastructure
-            
-            # - get_ips
-            # - configure_infrastructure:
-            #     requires: [get_ips]
-            # - check-img
-            - joba
-            # - jobb:
-            #     requires:
-            #       - joba
+            - job1
+            - job2:
+                requires:
+                  - job1
