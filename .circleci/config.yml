@@ -325,6 +325,14 @@ jobs:
             - checkout
             - run: echo "This is the second job"
 
+    job3:
+        docker:
+            - image: ubuntu
+        steps:
+            - checkout
+            - run: echo "This is the third job"
+
+
 
 
 
@@ -333,10 +341,13 @@ workflows:
         jobs:
             # - create_infrastructure
             - job1
-                # filters:
-                #     branches:
-                #         only: [test-branch]
             - job2:
                 requires:
                   - job1
-#
+                filters:
+                    branches:
+                        only: [test-branch]
+            - job3:
+                requires:
+                  - job2
+
