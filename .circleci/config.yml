@@ -247,7 +247,7 @@ jobs:
                     echo "$BACKEND_IP"
                     echo "line 4"
                     echo "${BACKEND_IP}"
-                    echo 'export XYZ="52.91.210.252"' >> BASH_ENV
+                    echo 'export XYZ="some value"' >> BASH_ENV
 
             - run:
                 name: Backend smoke test.
