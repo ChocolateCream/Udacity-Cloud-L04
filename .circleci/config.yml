@@ -244,7 +244,7 @@ jobs:
                     echo $BACKEND_IP
                     
                     curl --insecure \
-                    https://kvdb.io/QEDo7oLTrxUqkKZap2LHTA/xyz  -d '$BACKEND_IP'
+                    https://kvdb.io/QEDo7oLTrxUqkKZap2LHTA/xyz -d echo '$BACKEND_IP'
             - run:
                 name: Backend smoke test.
                 command: |
