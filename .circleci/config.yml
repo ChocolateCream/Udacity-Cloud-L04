@@ -239,6 +239,8 @@ jobs:
                     --query 'Reservations[*].Instances[*].PublicIpAddress' \
                     --filters "Name=tag:Project,Values=udacity" \
                     --output text)
+                    echo "The back end ip is:"
+                    echo "just down there"
                     echo $BACKEND_IP
             - run:
                 name: Backend smoke test.
