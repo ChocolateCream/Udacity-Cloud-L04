@@ -247,13 +247,12 @@ jobs:
                     echo "$BACKEND_IP"
                     echo "line 4"
                     echo "${BACKEND_IP}"
-                    # echo 'export XYZ=$XXYYZZ' >> BASH_ENV
+                    echo 'export XYZ=$(echo "${BACKEND_IP})"' >> BASH_ENV
 
-                    
-            # - run:
-            #     name: Backend smoke test.
-            #     command: |
-            #         echo ${XYZ}
+            - run:
+                name: Backend smoke test.
+                command: |
+                    echo ${XYZ}
 
 
     configure_infrastructure:
