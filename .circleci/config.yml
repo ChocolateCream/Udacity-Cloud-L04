@@ -133,7 +133,7 @@ jobs:
         steps:
             - checkout
             - add_ssh_keys:
-                fingerprints: ["a6:cc:1b:82:99:06:8d:cf:79:e8:c6:c4:0b:6b:2b:a7"]
+                fingerprints: [$FINGER_PRINT]
             - run:
                 name: Getting Ansible
                 command: |
@@ -155,10 +155,6 @@ jobs:
             - run:
                 name: Getting the DNS name of the server
                 command: |
-                    # aws ec2 describe-instances \
-                    # --query 'Reservations[*].Instances[*].PublicDnsName' \
-                    # --filters "Name=tag:Project,Values=udacity" \
-                    # --output text >> ansible_folder/inventory
                     aws ec2 describe-instances \
                     --query 'Reservations[*].Instances[*].PublicDnsName' \
                     --filters "Name=tag:Project,Values=udacity" \
@@ -328,7 +324,7 @@ workflows:
             # - configure_infrastructure:
             #     requires: [get_ips]
             # - check-img
-            - fake-smoke-test
+            - joba
             # - jobb:
             #     requires:
             #       - joba

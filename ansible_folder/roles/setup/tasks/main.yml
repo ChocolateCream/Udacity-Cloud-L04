@@ -1,57 +1,12 @@
 ---
-## update apt packages
-- name: Updating apt Packages
-  become: true
-  apt:
-    update_cache: true
-
-# ## getting aptitute
-# - name: getting aptitude
-#   become: true
-#   shell: apt-get install aptitude
-
-## upgrade packages
-- name: Upgrading Packages
-  become: true
-  apt:
-    upgrade: true
-
-## install dependencies, such as NodeJS and NPM
-- name: Installing Dependencies
-  become: true
-  apt:
-    name: [nodejs, npm]
-    state: latest
-    update_cache: true
-
-## install pm2
-- name: Installing pm2
-  become: true
-  npm:
-    name: pm2
-    global: true
-    production: true
-    state: present
-
 - name: Creates directory
   file:
     path: /home/ubuntu/backend
     state: directory
 
-
 ## extract the files
-- name: extracting files
+- name: copying files
   # shell: pm2 start ~/web/index.js -f
-  unarchive:
+  copy:
     src: ../artifact.tar.gz
     dest: /home/ubuntu/backend
-
-# ## various jobs
-# - name: test jobs
-#   shell: |
-#     ls -la
-#     pwd
-#     cd ..
-#     ls -la
-#     pwd
-
