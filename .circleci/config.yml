@@ -234,7 +234,7 @@ jobs:
             - run:
                 name: Get backend url
                 command: |
-                    if curl "http://52.91.228.106:3030/" | grep "ok"
+                    if curl "http://52.91.228.106:3030/api/status" | grep "ok"
                     then
                         exit 0
                     else
