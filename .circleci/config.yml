@@ -245,7 +245,7 @@ jobs:
                     echo 'export XYZ=$XXYYZZ' >> BASH_ENV
 
                 environment:
-                    XXYYZZ: $BACKEND_IP
+                    XXYYZZ: someRandomText
                     
             - run:
                 name: Backend smoke test.
