@@ -242,8 +242,7 @@ jobs:
                     echo "just down there"
                     echo $BACKEND_IP
 
-                    echo 'export XYZ=(echo $BACKEND_IP)' >> $BASH_ENV
-                    echo $XYZ
+                    export XYZ=$BACKEND_IP >> $BASH_ENV
                     
             - run:
                 name: Backend smoke test.
