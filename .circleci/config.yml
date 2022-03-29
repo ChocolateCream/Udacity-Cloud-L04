@@ -242,9 +242,7 @@ jobs:
                     echo "The back end ip is:"
                     echo "just down there"
                     echo $BACKEND_IP
-                environmnet:
-                    BACKEND_IP: anything
-
+                    echo 'export $BACKEND_IP' >> $BASH_ENV
             - run:
                 name: Backend smoke test.
                 command: |
