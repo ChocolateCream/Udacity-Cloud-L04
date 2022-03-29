@@ -242,7 +242,7 @@ jobs:
                     echo "just down there"
                     echo $BACKEND_IP
 
-                    echo 'export XYZ=echo ${BACKEND_IP}' >> $BASH_ENV
+                    echo 'export XYZ=echo $BACKEND_IP' >> $BASH_ENV
                     echo $XYZ
                     
             - run:
