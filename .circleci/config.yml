@@ -233,8 +233,8 @@ jobs:
         steps:
             - checkout
             - run:
-                  name: Get backend url
-                  command: |
+                name: Get backend url
+                command: |
                     BACKEND_IP=$(aws ec2 describe-instances \
                     --query 'Reservations[*].Instances[*].PublicIpAddress' \
                     --filters "Name=tag:Project,Values=udacity" \
@@ -242,6 +242,9 @@ jobs:
                     echo "The back end ip is:"
                     echo "just down there"
                     echo $BACKEND_IP
+                environmnet:
+                    BACKEND_IP: anything
+
             - run:
                 name: Backend smoke test.
                 command: |
