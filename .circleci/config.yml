@@ -332,7 +332,10 @@ workflows:
     AWSworkflow:
         jobs:
             # - create_infrastructure
-            - job1
+            - job1:
+                filters:
+                    branches:
+                        only: [test-branch]
             - job2:
                 requires:
                   - job1
