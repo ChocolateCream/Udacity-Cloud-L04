@@ -242,9 +242,9 @@ jobs:
                     echo "The back end ip is:"
                     echo "just down there"
                     echo $BACKEND_IP
+
+                    echo 'export BACKEND_IP=$BACKEND_IP' >> $BASH_ENV
                     
-                    curl --insecure \
-                    https://kvdb.io/QEDo7oLTrxUqkKZap2LHTA/xyz -d echo '$BACKEND_IP'
             - run:
                 name: Backend smoke test.
                 command: |
