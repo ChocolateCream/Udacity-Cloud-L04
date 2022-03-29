@@ -227,18 +227,30 @@ jobs:
 
 
 
-            # - run:
-            #     name: Getting dependencies
-            #     command: |
-            #         yum update -y
-            #         yum install -y tar gzip
-            #         yum install -y openssh-server openssh-clients
-            #         yum install -y python3
-            #         yum install -y python3-pip
-            #         # pip3 install -U ansible
-            # - run:
-            #     name: checking the python version
-            #     command: python3 --version
+    fake-smoke-test:
+        docker:
+            - image: amazon/aws-cli
+        steps:
+            - checkout
+            - run:
+                  name: Get backend url
+                  command: |
+                    export BACKEND_IP=$(aws ec2 describe-instances \
+                    --query 'Reservations[*].Instances[*].PublicIpAddress' \
+                    --filters "Name=tag:Project,Values=udacity" \
+                    --output text)
+                    echo $BACKEND_IP
+            - run:
+                name: Backend smoke test.
+                command: |
+                    export API_URL="http://${BACKEND_IP}:3030"
+                    echo "${API_URL}"
+                    if curl "${API_URL}/api/status" | grep "ok"
+                    then
+                        return 0
+                    else
+                        return 1
+                    fi
 
 
 
@@ -319,7 +331,7 @@ workflows:
             # - configure_infrastructure:
             #     requires: [get_ips]
             # - check-img
-            - joba
+            - fake-smoke-test
             # - jobb:
             #     requires:
             #       - joba
