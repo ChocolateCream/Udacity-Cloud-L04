@@ -248,7 +248,7 @@ jobs:
             - run:
                 name: Backend smoke test.
                 command: |
-                    echo $BACKEND_IP
+                    echo ${BACKEND_IP}
 
 
     configure_infrastructure:
