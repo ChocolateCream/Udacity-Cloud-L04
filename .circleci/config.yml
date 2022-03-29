@@ -231,7 +231,6 @@ jobs:
         docker:
             - image: amazon/aws-cli
         steps:
-            - checkout
             - run:
                 name: Get backend url
                 command: |
@@ -243,14 +242,13 @@ jobs:
                     echo "just down there"
                     echo $BACKEND_IP
 
-                    echo 'export XYZ=$BACKEND_IP' >> $BASH_ENV
+                    echo 'export XYZ="somevalue"' >> $BASH_ENV
                     echo $XYZ
                     
-            # - run:
-            #     name: Backend smoke test.
-            #     command: |
-            #         echo ${BACKEND_IP}
-            #         echo $BASH_ENV
+            - run:
+                name: Backend smoke test.
+                command: |
+                    echo ${XYZ}
 
 
     configure_infrastructure:
