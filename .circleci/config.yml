@@ -313,24 +313,42 @@ jobs:
 
     job1:
         docker:
-            - image: ubuntu
+            - image: amazon/aws-cli
         steps:
-            - checkout
-            - run: echo "This is the first job"
+            - run: |
+                xyz=mina
+                if [ $xyz = "mina" ]
+                then
+                    echo "yes I am mina"
+                else
+                    echo "I am not"
+                fi
 
     job2:
         docker:
             - image: ubuntu
         steps:
-            - checkout
-            - run: echo "This is the second job"
+            - run: |
+                xyz=minas
+                if [ $xyz = "mina" ]
+                then
+                    echo "yes I am mina"
+                else
+                    echo "no I am not"
+                fi
 
     job3:
         docker:
-            - image: ubuntu
+            - image: circleci/node:13.8.0
         steps:
-            - checkout
-            - run: echo "This is the third job"
+            - run: |
+                xyz=mina
+                if [ $xyz = "mina" ]
+                then
+                    echo "yes I am mina"
+                else
+                    echo "I am not"
+                fi
 
 
 
@@ -339,15 +357,6 @@ jobs:
 workflows:
     AWSworkflow:
         jobs:
-            # - create_infrastructure
             - job1
-            - job2:
-                requires:
-                  - job1
-                filters:
-                    branches:
-                        only: [test-branch]
-            - job3:
-                requires:
-                  - job2
-
+            - job2
+            - job3
